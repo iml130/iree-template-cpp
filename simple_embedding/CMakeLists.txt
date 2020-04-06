@@ -11,7 +11,6 @@
 # limitations under the License.
 
 #-------------------------------------------------------------------------------
-# Imitate IREE's CMake module `iree_bytecode_module`.
 # Use `iree-translate` to transform an MLIR file into an VM bytcode module.
 #-------------------------------------------------------------------------------
 
@@ -34,9 +33,7 @@ add_custom_command(
 
 
 #-------------------------------------------------------------------------------
-# Imitate IREE's CMake module `iree_cc_embed_data`.
 # Embedd the VM bytcode module into a cc file via `generate_cc_embed_data`.
-# The call to `iree_cc_embed_data` is embedded into `iree_bytecode_module`.
 #-------------------------------------------------------------------------------
 
 # Define arguments passed to generate_cc_embed_data
@@ -59,9 +56,7 @@ add_custom_command(
 
 
 #-------------------------------------------------------------------------------
-# Imitate IREE's CMake module `iree_cc_library`.
-# Creates a library and thus a CMake target.
-# The call to `iree_cc_library` is embedded into `iree_cc_embed_data`
+# Create a library and thus a CMake target.
 #-------------------------------------------------------------------------------
 
 add_library(simple_embedding_test_bytecode_module_cc STATIC "")
@@ -73,7 +68,7 @@ target_sources(simple_embedding_test_bytecode_module_cc
 
 
 #-------------------------------------------------------------------------------
-# Imitate IREE's CMake module `iree_cc_test`.
+# Build a excutable for testing.
 #-------------------------------------------------------------------------------
 
 add_executable(simple_embedding_test "")
