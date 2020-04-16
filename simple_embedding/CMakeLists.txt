@@ -20,6 +20,9 @@ set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree_tools_iree-translate>)
 # Define arguments passed to iree-translate
 set(_ARGS)
 list(APPEND _ARGS "-iree-mlir-to-vm-bytecode-module")
+list(APPEND _ARGS "-iree-hal-target-backends=vmla")
+# TODO: Get vulkan working
+#list(APPEND _ARGS "-iree-hal-target-backends=vulkan-spirv")
 list(APPEND _ARGS "${CMAKE_CURRENT_SOURCE_DIR}/simple_embedding_test.mlir")
 list(APPEND _ARGS "-o")
 list(APPEND _ARGS "simple_embedding_test_bytecode_module.module")
