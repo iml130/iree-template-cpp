@@ -1,6 +1,7 @@
-# IREE Template CPP
+# IREE C++ Template
 
-**DISCLAIMER**: This is a first draft which still evolves, as also the CMake configuration in IREE is revised. It is not intended for everyday use and made available without any support.
+**DISCLAIMER**: This is a first version which still evolves, as also the CMake configuration in IREE is revised. It is not intended for everyday use and made available without any support.
+However, we welcome any kind of feedback via the issue tracker or if appropriate via IREE's [communication channels](https://github.com/google/iree#communication-channels), e.g. via the Discord server.
 
 This template demonstrates how to integrate [IREE](https://github.com/google/iree) into a third-party project with CMake.
 IREE runtime support is demonstrated via the `simple_embedding` sample forked from IREE, where the original source can be found [here](https://github.com/google/iree/tree/master/iree/samples/simple_embedding).
