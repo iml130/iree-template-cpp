@@ -22,8 +22,14 @@ Make sure you have CMake >= 3.13 and Clang installed. GCC is not fully supported
 ```shell
 git clone https://github.com/iml130/iree-template-cpp.git
 cd iree-template-cpp
-git submodule update --init --recursive
+git submodule update --init
+cd third_party/iree
+git submodule update --init
+cd ../../
 ```
+> Note:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;The submodules used within IREE themself include submodules, so that we advice to avoid an recursive update.
+
 
 #### Configure and Build
 
