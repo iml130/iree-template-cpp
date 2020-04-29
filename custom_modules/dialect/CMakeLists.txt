@@ -57,11 +57,10 @@ target_link_libraries(dialect
 #-------------------------------------------------------------------------------
 
 add_executable(custom_opt "")
-set(_DUMMY_SRC "${CMAKE_CURRENT_BINARY_DIR}/custom_opt_dummy.cc")
-file(WRITE ${_DUMMY_SRC} "")
 target_sources(custom_opt
   PRIVATE
-    ${_DUMMY_SRC}
+    custom_opt.cc
+    init_dialect.h
 )
 
 set_target_properties(custom_opt PROPERTIES OUTPUT_NAME custom-opt)
@@ -70,8 +69,37 @@ target_link_libraries(custom_opt
   PUBLIC
   "-Wl,--whole-archive"
   dialect
+  iree_compiler_Translation_IREEVM
+  tensorflow_mlir_xla
   "-Wl,--no-whole-archive"
-  iree_tools_iree_opt_main
+  iree_tools_init_compiler_modules
+  iree_tools_init_passes_and_dialects
+  iree_tools_init_targets
+  LLVMSupport
+  MLIRIR
+  MLIROptLib
+  MLIRPass
+  MLIRSupport
+  iree_compiler_Dialect_Flow_Analysis_Analysis
+  iree_compiler_Dialect_Flow_IR_IR
+  iree_compiler_Dialect_Flow_Transforms_Transforms
+  iree_compiler_Dialect_HAL_Conversion_FlowToHAL_FlowToHAL
+  iree_compiler_Dialect_HAL_Conversion_HALToVM_HALToVM
+  iree_compiler_Dialect_HAL_Transforms_Transforms
+  iree_compiler_Dialect_IREE_IR_IR
+  iree_compiler_Dialect_IREE_Transforms_Transforms
+  iree_compiler_Dialect_Shape_IR_IR
+  iree_compiler_Dialect_Shape_Transforms_Transforms
+  iree_compiler_Dialect_VM_Analysis_Analysis
+  iree_compiler_Dialect_VM_Conversion_StandardToVM_StandardToVM
+  iree_compiler_Dialect_VM_IR_IR
+  iree_compiler_Dialect_VM_Transforms_Transforms
+  iree_compiler_Dialect_VMLA_Conversion_HLOToVMLA_HLOToVMLA
+  iree_compiler_Dialect_VMLA_Conversion_VMLAToVM_VMLAToVM
+  iree_compiler_Dialect_VMLA_Transforms_Transforms
+  iree_compiler_Dialect_Vulkan_IR_IR
+  iree_compiler_Translation_SPIRV_init_translations
+  iree_compiler_Translation_CodegenPasses_CodegenPasses
 )
 
 
@@ -80,11 +108,10 @@ target_link_libraries(custom_opt
 #-------------------------------------------------------------------------------
 
 add_executable(custom_translate "")
-set(_DUMMY_SRC "${CMAKE_CURRENT_BINARY_DIR}/custom_translate_dummy.cc")
-file(WRITE ${_DUMMY_SRC} "")
 target_sources(custom_translate
   PRIVATE
-    ${_DUMMY_SRC}
+    custom_translate.cc
+    init_dialect.h
 )
 
 set_target_properties(custom_translate PROPERTIES OUTPUT_NAME custom-translate)
@@ -94,8 +121,19 @@ target_link_libraries(custom_translate
   "-Wl,--whole-archive"
   dialect
   iree_compiler_Translation_IREEVM
+  tensorflow_mlir_xla
   "-Wl,--no-whole-archive"
-  iree_tools_iree_translate_main
+  iree_tools_init_compiler_modules
+  iree_tools_init_passes_and_dialects
+  iree_tools_init_targets
+  LLVMSupport
+  MLIRIR
+  MLIRLoopOpsTransforms
+  MLIRPass
+  MLIRSupport
+  MLIRTranslation
+  iree_compiler_Dialect_VM_Target_Bytecode_Bytecode
+  iree_compiler_Translation_SPIRV_init_translations
 )
 
 
