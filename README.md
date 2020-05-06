@@ -36,7 +36,7 @@ cd ../../
 ```shell
 mkdir build
 cd build
-CC=clang CXX=clang++ cmake -GNinja ..
+cmake -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..
 ninja
 ```
 #### What's next?
