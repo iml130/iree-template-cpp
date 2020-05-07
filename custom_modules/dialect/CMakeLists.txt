@@ -70,11 +70,11 @@ target_link_libraries(custom_opt
   dialect
   "-Wl,--whole-archive"
   iree_compiler_Translation_IREEVM
-  tensorflow_mlir_xla
   "-Wl,--no-whole-archive"
   iree_tools_init_compiler_modules
   iree_tools_init_passes_and_dialects
   iree_tools_init_targets
+  iree_tools_init_xla_dialects
   LLVMSupport
   MLIRIR
   MLIROptLib
@@ -100,6 +100,7 @@ target_link_libraries(custom_opt
   iree_compiler_Dialect_Vulkan_IR_IR
   iree_compiler_Translation_SPIRV_init_translations
   iree_compiler_Translation_CodegenPasses_CodegenPasses
+  tensorflow_mlir_xla
 )
 
 
@@ -121,11 +122,11 @@ target_link_libraries(custom_translate
   dialect
   "-Wl,--whole-archive"
   iree_compiler_Translation_IREEVM
-  tensorflow_mlir_xla
   "-Wl,--no-whole-archive"
   iree_tools_init_compiler_modules
   iree_tools_init_passes_and_dialects
   iree_tools_init_targets
+  iree_tools_init_xla_dialects
   LLVMSupport
   MLIRIR
   MLIRLoopOpsTransforms
