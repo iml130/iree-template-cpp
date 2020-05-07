@@ -67,8 +67,8 @@ set_target_properties(custom_opt PROPERTIES OUTPUT_NAME custom-opt)
 
 target_link_libraries(custom_opt
   PUBLIC
-  "-Wl,--whole-archive"
   dialect
+  "-Wl,--whole-archive"
   iree_compiler_Translation_IREEVM
   tensorflow_mlir_xla
   "-Wl,--no-whole-archive"
@@ -118,8 +118,8 @@ set_target_properties(custom_translate PROPERTIES OUTPUT_NAME custom-translate)
 
 target_link_libraries(custom_translate
   PUBLIC
-  "-Wl,--whole-archive"
   dialect
+  "-Wl,--whole-archive"
   iree_compiler_Translation_IREEVM
   tensorflow_mlir_xla
   "-Wl,--no-whole-archive"
