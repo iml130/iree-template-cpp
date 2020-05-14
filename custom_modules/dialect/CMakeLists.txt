@@ -68,9 +68,6 @@ set_target_properties(custom_opt PROPERTIES OUTPUT_NAME custom-opt)
 target_link_libraries(custom_opt
   PUBLIC
   dialect
-  "-Wl,--whole-archive"
-  iree_compiler_Translation_IREEVM
-  "-Wl,--no-whole-archive"
   iree_tools_init_compiler_modules
   iree_tools_init_passes_and_dialects
   iree_tools_init_targets
@@ -80,6 +77,8 @@ target_link_libraries(custom_opt
   MLIROptLib
   MLIRPass
   MLIRSupport
+  iree_compiler_Conversion_HLOToLinalg_HLOToLinalg
+  iree_compiler_Conversion_init_conversions
   iree_compiler_Dialect_Flow_Analysis_Analysis
   iree_compiler_Dialect_Flow_IR_IR
   iree_compiler_Dialect_Flow_Transforms_Transforms
@@ -88,6 +87,7 @@ target_link_libraries(custom_opt
   iree_compiler_Dialect_HAL_Transforms_Transforms
   iree_compiler_Dialect_IREE_IR_IR
   iree_compiler_Dialect_IREE_Transforms_Transforms
+  iree_compiler_Dialect_Shape_Conversion_Conversion
   iree_compiler_Dialect_Shape_IR_IR
   iree_compiler_Dialect_Shape_Transforms_Transforms
   iree_compiler_Dialect_VM_Analysis_Analysis
@@ -98,8 +98,7 @@ target_link_libraries(custom_opt
   iree_compiler_Dialect_VMLA_Conversion_VMLAToVM_VMLAToVM
   iree_compiler_Dialect_VMLA_Transforms_Transforms
   iree_compiler_Dialect_Vulkan_IR_IR
-  iree_compiler_Translation_SPIRV_init_translations
-  iree_compiler_Translation_CodegenPasses_CodegenPasses
+  iree_compiler_Translation_IREEVM
   tensorflow_mlir_xla
 )
 
@@ -120,21 +119,21 @@ set_target_properties(custom_translate PROPERTIES OUTPUT_NAME custom-translate)
 target_link_libraries(custom_translate
   PUBLIC
   dialect
-  "-Wl,--whole-archive"
-  iree_compiler_Translation_IREEVM
-  "-Wl,--no-whole-archive"
   iree_tools_init_compiler_modules
   iree_tools_init_passes_and_dialects
   iree_tools_init_targets
+  iree_tools_init_translations
   iree_tools_init_xla_dialects
   LLVMSupport
   MLIRIR
-  MLIRLoopOpsTransforms
   MLIRPass
+  MLIRSCFTransforms
   MLIRSupport
   MLIRTranslation
+  iree_compiler_Conversion_init_conversions
   iree_compiler_Dialect_VM_Target_Bytecode_Bytecode
-  iree_compiler_Translation_SPIRV_init_translations
+  iree_compiler_Dialect_VM_Target_init_targets
+  iree_compiler_Translation_IREEVM
 )
 
 
