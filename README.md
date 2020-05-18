@@ -37,11 +37,18 @@ cd ../../
 #### Configure and Build
 
 ```shell
+# export LDFLAGS=-fuse-ld=$(which ld.lld)
+
 mkdir build
 cd build
-cmake -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..
+cmake -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. \
+# -DLLVM_ENABLE_LLD=ON
+
 ninja
 ```
+> Note:<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;Uncomment the lines above to enable linking via ldd.
+
 #### What's next?
 
 Explore the samples `simple_embedding` and `custom_modules` within the build directory:
@@ -56,4 +63,4 @@ Explore the samples `simple_embedding` and `custom_modules` within the build dir
 * `custom-opt`: See the related documentation for [iree-opt](https://google.github.io/iree/DeveloperOverview#iree-opt) documentation.
 * `custom-translate`: See the related documentation for [iree-translate](https://google.github.io/iree/DeveloperOverview#iree-translate) documentation.
 
-Of course you it's also worth to explore the corresponding CMake configuration.
+Of course it's also worth to explore the corresponding CMake configuration.
