@@ -42,7 +42,7 @@ target_link_libraries(dialect
   MLIRIR
   MLIRParser
   MLIRPass
-  MLIRSideEffects
+  MLIRSideEffectInterfaces
   MLIRTransforms
   iree_compiler_Dialect_HAL_Conversion_Conversion
   iree_compiler_Dialect_HAL_IR_IR
