@@ -69,7 +69,8 @@ target_link_libraries(custom_opt
   PUBLIC
   dialect
   iree_tools_init_compiler_modules
-  iree_tools_init_passes_and_dialects
+  iree_tools_init_iree_passes_and_dialects
+  iree_tools_init_mlir_passes_and_dialects
   iree_tools_init_targets
   iree_tools_init_xla_dialects
   LLVMSupport
@@ -120,7 +121,8 @@ target_link_libraries(custom_translate
   PUBLIC
   dialect
   iree_tools_init_compiler_modules
-  iree_tools_init_passes_and_dialects
+  iree_tools_init_iree_passes_and_dialects
+  iree_tools_init_mlir_passes_and_dialects
   iree_tools_init_targets
   iree_tools_init_translations
   iree_tools_init_xla_dialects
