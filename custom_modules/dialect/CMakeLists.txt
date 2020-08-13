@@ -85,6 +85,7 @@ target_link_libraries(custom_opt
   iree_compiler_Dialect_Flow_Transforms_Transforms
   iree_compiler_Dialect_HAL_Conversion_FlowToHAL_FlowToHAL
   iree_compiler_Dialect_HAL_Conversion_HALToVM_HALToVM
+  iree_compiler_Dialect_HAL_Conversion_Passes
   iree_compiler_Dialect_HAL_Transforms_Transforms
   iree_compiler_Dialect_IREE_IR_IR
   iree_compiler_Dialect_IREE_Transforms_Transforms
@@ -100,7 +101,7 @@ target_link_libraries(custom_opt
   iree_compiler_Dialect_VMLA_Transforms_Transforms
   iree_compiler_Dialect_Vulkan_IR_IR
   iree_compiler_Translation_IREEVM
-  tensorflow_mlir_xla
+  tensorflow_mlir_hlo
 )
 
 

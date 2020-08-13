@@ -105,7 +105,6 @@ target_link_libraries(custom_modules_test
   iree_vm_vm
   iree_vm_bytecode_module
   iree_vm_ref
-  gmock
 )
 
 
@@ -128,9 +127,6 @@ target_include_directories(native_module
 target_link_libraries(native_module
   iree_base_api
   iree_base_api_util
-  iree_base_buffer_string_util
-  iree_base_shape
-  iree_base_shaped_buffer_string_util
   iree_hal_api
   iree_modules_hal_hal
   iree_vm_vm

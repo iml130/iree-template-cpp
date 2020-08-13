@@ -102,5 +102,5 @@ target_link_libraries(simple_embedding_test
   iree_testing_gtest_main
   iree_vm_vm
   iree_vm_bytecode_module
-  gmock
+  iree_vm_ref_cc
 )
