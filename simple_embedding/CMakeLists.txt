@@ -91,7 +91,6 @@ target_link_libraries(simple_embedding_test
   absl_core_headers
   absl_strings
   iree_base_api
-  iree_base_api_util
   iree_base_logging
   iree_hal_api
   "-Wl,--whole-archive"
@@ -99,6 +98,7 @@ target_link_libraries(simple_embedding_test
   iree_hal_vulkan_vulkan_driver_module
   "-Wl,--no-whole-archive"
   iree_modules_hal_hal
+  iree_testing_gtest
   iree_testing_gtest_main
   iree_vm_vm
   iree_vm_bytecode_module

@@ -101,6 +101,7 @@ target_link_libraries(custom_modules_test
   iree_hal_vmla_vmla_driver_module
   "-Wl,--no-whole-archive"
   iree_modules_hal_hal
+  iree_testing_gtest
   iree_testing_gtest_main
   iree_vm_vm
   iree_vm_bytecode_module
@@ -126,7 +127,6 @@ target_include_directories(native_module
 
 target_link_libraries(native_module
   iree_base_api
-  iree_base_api_util
   iree_hal_api
   iree_modules_hal_hal
   iree_vm_vm
