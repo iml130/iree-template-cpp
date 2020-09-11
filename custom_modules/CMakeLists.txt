@@ -130,5 +130,5 @@ target_link_libraries(native_module
   iree_hal_api
   iree_modules_hal_hal
   iree_vm_vm
-  iree_vm_module_abi_cc
+  iree_vm_native_module_cc
 )

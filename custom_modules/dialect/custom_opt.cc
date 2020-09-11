@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
   if (failed(mlir::MlirOptMain(output->os(), std::move(file), passPipeline,
                                registry, splitInputFile, verifyDiagnostics,
                                verifyPasses, allowUnregisteredDialects,
-                               /*preloadDialectsInContext=*/true))) {
+                               /*preloadDialectsInContext=*/false))) {
     return 1;
   }
 }
