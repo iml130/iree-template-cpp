@@ -102,10 +102,10 @@ void CustomDialect::printType(Type type, DialectAsmPrinter &p) const {
   }
 }
 
-#define GET_OP_CLASSES
-#include "custom_ops.cc.inc"
-
 }  // namespace Custom
 }  // namespace IREE
 }  // namespace iree_compiler
 }  // namespace mlir
+
+#define GET_OP_CLASSES
+#include "custom_ops.cc.inc"
