@@ -59,7 +59,7 @@ target_link_libraries(dialect
 add_executable(custom_opt "")
 target_sources(custom_opt
   PRIVATE
-    custom_opt.cc
+    custom-opt-main.cc
     init_dialect.h
 )
 
@@ -112,7 +112,7 @@ target_link_libraries(custom_opt
 add_executable(custom_translate "")
 target_sources(custom_translate
   PRIVATE
-    custom_translate.cc
+    custom-translate-main.cc
     init_dialect.h
 )
 
