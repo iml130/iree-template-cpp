@@ -1,0 +1,35 @@
+name: Build IREE C++ Template
+
+on:
+  push:
+    branches:
+      - master
+      - integrate
+      - ci
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install cmake clang ninja-build
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Initalize submodules
+      run : |
+        git submodule update --init
+        cd third_party/iree
+        git submodule update --init
+    - name: Build
+      run: |
+        cd $GITHUB_WORKSPACE
+        mkdir build
+        cd build
+        cmake .. \
+          -GNinja \
+          -DCMAKE_C_COMPILER=clang-10 \
+          -DCMAKE_CXX_COMPILER=clang++-10
+        ninja
