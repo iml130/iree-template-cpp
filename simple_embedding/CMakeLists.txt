@@ -21,7 +21,8 @@ set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree_tools_iree-translate>)
 set(_ARGS)
 list(APPEND _ARGS "-iree-mlir-to-vm-bytecode-module")
 list(APPEND _ARGS "-iree-hal-target-backends=vmla")
-list(APPEND _ARGS "-iree-hal-target-backends=vulkan-spirv")
+# Uncomment the line below to use vulkan-spirv backend
+#list(APPEND _ARGS "-iree-hal-target-backends=vulkan-spirv")
 list(APPEND _ARGS "${CMAKE_CURRENT_SOURCE_DIR}/simple_embedding_test.mlir")
 list(APPEND _ARGS "-o")
 list(APPEND _ARGS "simple_embedding_test_bytecode_module.module")
@@ -95,7 +96,8 @@ target_link_libraries(simple_embedding_test
   iree_hal_api
   "-Wl,--whole-archive"
   iree_hal_vmla_vmla_driver_module
-  iree_hal_vulkan_vulkan_driver_module
+  # Uncomment the line below to use vulkan-spirv backend
+  #iree_hal_vulkan_vulkan_driver_module
   "-Wl,--no-whole-archive"
   iree_modules_hal_hal
   iree_testing_gtest
