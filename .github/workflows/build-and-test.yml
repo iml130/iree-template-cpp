@@ -32,4 +32,6 @@ jobs:
           -GNinja \
           -DCMAKE_C_COMPILER=clang-10 \
           -DCMAKE_CXX_COMPILER=clang++-10
-        ninja
+        cmake --build . --target custom_modules_test simple_embedding_test
+        ./custom_modules/custom_modules_test
+        ./simple_embedding/simple_embedding_test
