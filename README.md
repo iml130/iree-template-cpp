@@ -3,7 +3,6 @@
 ![Build IREE C++ Template](https://github.com/iml130/iree-template-cpp/workflows/Build%20IREE%20C++%20Template/badge.svg)
 
 **DISCLAIMER**:
-
 This project is not intended for everyday use and made available without any support.
 However, we welcome any kind of feedback via the issue tracker or if appropriate via IREE's [communication channels](https://github.com/google/iree#communication-channels), e.g. via the Discord server.
 
