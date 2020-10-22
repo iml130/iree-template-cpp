@@ -1,11 +1,15 @@
 # IREE C++ Template
 
-**DISCLAIMER**: This is a first version which still evolves, as also the CMake configuration in IREE is revised. It is not intended for everyday use and made available without any support.
+![Build IREE C++ Template](https://github.com/iml130/iree-template-cpp/workflows/Build%20IREE%20C++%20Template/badge.svg)
+
+**DISCLAIMER**:
+
+This project is not intended for everyday use and made available without any support.
 However, we welcome any kind of feedback via the issue tracker or if appropriate via IREE's [communication channels](https://github.com/google/iree#communication-channels), e.g. via the Discord server.
 
-This template demonstrates how to integrate [IREE](https://github.com/google/iree) into a third-party project with CMake.
+The IREE C++ template demonstrates how to integrate [IREE](https://github.com/google/iree) into a third-party project with CMake.
 IREE runtime support is demonstrated via the `simple_embedding` sample forked from IREE, where the original source can be found [here](https://github.com/google/iree/tree/master/iree/samples/simple_embedding).
-The `custom_modules` sample further demonstrates the out-of-tree usage of a custom dialect alongside with the runtime. The original `custom_modules` source can found [here](https://github.com/google/iree/tree/master/iree/samples/custom_dialect).
+The `custom_modules` sample further demonstrates the out-of-tree usage of a custom dialect alongside with the runtime. The original `custom_modules` source can be found [here](https://github.com/google/iree/tree/master/iree/samples/custom_dialect).
 
 The template is developed by Marius Brehler at Fraunhofer IML.
 
@@ -13,7 +17,7 @@ The template is developed by Marius Brehler at Fraunhofer IML.
 
 ### Prerequisites
 
-Since this template demonstrates how to use IREE compontens out-of-tree, the prerequisites match those of IREE, documented in the [Getting Started on Linux with CMake](https://google.github.io/iree/GetStarted/LinuxCMake) guide.
+Since this template demonstrates how to use IREE compontens out-of-tree, the prerequisites match those of IREE, documented in the [Getting Started on Linux with CMake](https://google.github.io/iree/get-started/getting-started-linux-cmake) guide.
 Make sure you have CMake >= 3.13 and Clang installed. GCC is not fully supported yet.
 
 ### Clone and Build
