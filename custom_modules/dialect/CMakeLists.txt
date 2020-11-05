@@ -68,40 +68,12 @@ set_target_properties(custom_opt PROPERTIES OUTPUT_NAME custom-opt)
 target_link_libraries(custom_opt
   PUBLIC
   dialect
-  iree_tools_init_compiler_modules
-  iree_tools_init_iree_passes_and_dialects
-  iree_tools_init_mlir_passes_and_dialects
+  iree_tools_init_passes_and_dialects
   iree_tools_init_targets
-  iree_tools_init_xla_dialects
   LLVMSupport
   MLIRIR
   MLIROptLib
-  MLIRPass
   MLIRSupport
-  iree_compiler_Conversion_HLOToLinalg_HLOToLinalg
-  iree_compiler_Conversion_init_conversions
-  iree_compiler_Dialect_Flow_Analysis_Analysis
-  iree_compiler_Dialect_Flow_IR_IR
-  iree_compiler_Dialect_Flow_Transforms_Transforms
-  iree_compiler_Dialect_HAL_Conversion_FlowToHAL_FlowToHAL
-  iree_compiler_Dialect_HAL_Conversion_HALToVM_HALToVM
-  iree_compiler_Dialect_HAL_Conversion_Passes
-  iree_compiler_Dialect_HAL_Transforms_Transforms
-  iree_compiler_Dialect_IREE_IR_IR
-  iree_compiler_Dialect_IREE_Transforms_Transforms
-  iree_compiler_Dialect_Shape_Conversion_Conversion
-  iree_compiler_Dialect_Shape_IR_IR
-  iree_compiler_Dialect_Shape_Transforms_Transforms
-  iree_compiler_Dialect_VM_Analysis_Analysis
-  iree_compiler_Dialect_VM_Conversion_StandardToVM_StandardToVM
-  iree_compiler_Dialect_VM_IR_IR
-  iree_compiler_Dialect_VM_Transforms_Transforms
-  iree_compiler_Dialect_VMLA_Conversion_HLOToVMLA_HLOToVMLA
-  iree_compiler_Dialect_VMLA_Conversion_VMLAToVM_VMLAToVM
-  iree_compiler_Dialect_VMLA_Transforms_Transforms
-  iree_compiler_Dialect_Vulkan_IR_IR
-  iree_compiler_Translation_IREEVM
-  tensorflow_mlir_hlo
 )
 
 
