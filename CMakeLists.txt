@@ -25,6 +25,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Third-party dependencies
 #-------------------------------------------------------------------------------
 
+# Extend module path to allow submodules to find AddMLIR
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_BINARY_DIR}/lib/cmake/mlir")
+
 add_subdirectory(third_party/iree EXCLUDE_FROM_ALL)
 
 #-------------------------------------------------------------------------------
