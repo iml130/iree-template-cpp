@@ -97,15 +97,13 @@ target_link_libraries(custom_modules_test
   iree_base_api
   iree_base_logging
   iree_hal_api
-  "-Wl,--whole-archive"
-  iree_hal_vmla_vmla_driver_module
-  "-Wl,--no-whole-archive"
+  iree_hal_vmla_registration_registration
   iree_modules_hal_hal
   iree_testing_gtest
   iree_testing_gtest_main
   iree_vm_vm
   iree_vm_bytecode_module
-  iree_vm_ref
+  iree_vm_cc
 )
 
 
@@ -130,5 +128,5 @@ target_link_libraries(native_module
   iree_hal_api
   iree_modules_hal_hal
   iree_vm_vm
-  iree_vm_native_module_cc
+  iree_vm_cc
 )

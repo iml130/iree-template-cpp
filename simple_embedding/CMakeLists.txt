@@ -94,15 +94,11 @@ target_link_libraries(simple_embedding_test
   iree_base_api
   iree_base_logging
   iree_hal_api
-  "-Wl,--whole-archive"
-  iree_hal_vmla_vmla_driver_module
-  # Uncomment the line below to use vulkan-spirv backend
-  #iree_hal_vulkan_vulkan_driver_module
-  "-Wl,--no-whole-archive"
+  iree_hal_drivers_drivers
   iree_modules_hal_hal
   iree_testing_gtest
   iree_testing_gtest_main
   iree_vm_vm
   iree_vm_bytecode_module
-  iree_vm_ref_cc
+  iree_vm_cc
 )
