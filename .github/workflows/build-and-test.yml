@@ -3,11 +3,11 @@ name: Build IREE C++ Template
 on:
   push:
     branches:
-      - master
+      - main
       - integrate
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build:
