@@ -24,11 +24,11 @@ set(_ARGS)
 list(APPEND _ARGS "-iree-mlir-to-vm-bytecode-module")
 list(APPEND _ARGS "${CMAKE_CURRENT_SOURCE_DIR}/custom_modules_test.mlir")
 list(APPEND _ARGS "-o")
-list(APPEND _ARGS "custom_modules_test_module.module")
+list(APPEND _ARGS "custom_modules_test_module.vmfb")
 
 # Translate MLIR file to VM bytecode module
 add_custom_command(
-  OUTPUT "custom_modules_test_module.module"
+  OUTPUT "custom_modules_test_module.vmfb"
   COMMAND ${_TRANSLATE_TOOL_EXECUTABLE} ${_ARGS}
   DEPENDS custom_translate
 )
@@ -45,7 +45,7 @@ list(APPEND _ARGS "--output_impl=custom_modules_test_module.cc")
 list(APPEND _ARGS "--identifier=custom_modules_test_module")
 list(APPEND _ARGS "--cpp_namespace=iree::samples::custom_modules")
 list(APPEND _ARGS "--flatten")
-list(APPEND _ARGS "custom_modules_test_module.module")
+list(APPEND _ARGS "custom_modules_test_module.vmfb")
 
 # Embed VM bytecode module into cc source file
 add_custom_command(
@@ -53,7 +53,7 @@ add_custom_command(
     "custom_modules_test_module.h"
     "custom_modules_test_module.cc"
   COMMAND generate_cc_embed_data ${_ARGS}
-  DEPENDS generate_cc_embed_data custom_modules_test_module.module
+  DEPENDS generate_cc_embed_data custom_modules_test_module.vmfb
 )
 
 
