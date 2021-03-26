@@ -21,6 +21,12 @@ project(iree-template-cpp VERSION 1.0 LANGUAGES CXX C)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+# NOTE: The RTTI setting must match what LLVM was compiled with and IREE
+#       defaults to RTTI disabled in `iree_copts.cmake`.
+#       RTTI is disabled for `dialect` target, but you may want to consider to
+#       to pass `-fno-rtti` as a global compile option by adding the line
+# add_compile_options(-fno-rtti)
+
 #-------------------------------------------------------------------------------
 # Third-party dependencies
 #-------------------------------------------------------------------------------

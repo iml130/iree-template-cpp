@@ -50,6 +50,9 @@ target_link_libraries(dialect
   iree_compiler_Dialect_VM_Conversion_Conversion
 )
 
+# NOTE: IREE disables RTTI by default. See the main CMakeLists.txt.
+target_compile_options(dialect PRIVATE "-fno-rtti")
+
 #-------------------------------------------------------------------------------
 # Custom dialect tools
 #-------------------------------------------------------------------------------
