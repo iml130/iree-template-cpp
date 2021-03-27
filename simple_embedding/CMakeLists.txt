@@ -25,11 +25,11 @@ list(APPEND _ARGS "-iree-hal-target-backends=vmla")
 #list(APPEND _ARGS "-iree-hal-target-backends=vulkan-spirv")
 list(APPEND _ARGS "${CMAKE_CURRENT_SOURCE_DIR}/simple_embedding_test.mlir")
 list(APPEND _ARGS "-o")
-list(APPEND _ARGS "simple_embedding_test_bytecode_module.module")
+list(APPEND _ARGS "simple_embedding_test_bytecode_module.vmfb")
 
 # Translate MLIR file to VM bytecode module
 add_custom_command(
-  OUTPUT "simple_embedding_test_bytecode_module.module"
+  OUTPUT "simple_embedding_test_bytecode_module.vmfb"
   COMMAND ${_TRANSLATE_TOOL_EXECUTABLE} ${_ARGS}
   DEPENDS iree_tools_iree-translate
 )
@@ -46,7 +46,7 @@ list(APPEND _ARGS "--output_impl=simple_embedding_test_bytecode_module.cc")
 list(APPEND _ARGS "--identifier=simple_embedding_test_bytecode_module")
 list(APPEND _ARGS "--cpp_namespace=iree::samples")
 list(APPEND _ARGS "--flatten")
-list(APPEND _ARGS "simple_embedding_test_bytecode_module.module")
+list(APPEND _ARGS "simple_embedding_test_bytecode_module.vmfb")
 
 # Embed VM bytecode module into cc source file
 add_custom_command(
@@ -54,7 +54,7 @@ add_custom_command(
     "simple_embedding_test_bytecode_module.h"
     "simple_embedding_test_bytecode_module.cc"
   COMMAND generate_cc_embed_data ${_ARGS}
-  DEPENDS generate_cc_embed_data simple_embedding_test_bytecode_module.module
+  DEPENDS generate_cc_embed_data simple_embedding_test_bytecode_module.vmfb
 )
 
 
