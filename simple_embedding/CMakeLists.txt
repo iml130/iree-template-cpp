@@ -94,7 +94,9 @@ target_link_libraries(simple_embedding_test
   iree_base_api
   iree_base_logging
   iree_hal_api
-  iree_hal_testing_driver_registry
+  iree_hal_vmla_registration_registration
+  # Uncomment the line below to use vulkan-spirv backend
+  #iree_hal_vulkan_registration_registration
   iree_modules_hal_hal
   iree_testing_gtest
   iree_testing_gtest_main
