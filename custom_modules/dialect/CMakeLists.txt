@@ -141,10 +141,10 @@ add_dependencies(custom_ops_gen custom_ops_gen_target)
 
 
 #-------------------------------------------------------------------------------
-# Embedd the MLIR file into a cc file via `generate_cc_embed_data`.
+# Embedd the MLIR file into a cc file via `generate_embed_data`.
 #-------------------------------------------------------------------------------
 
-# Define arguments passed to generate_cc_embed_data
+# Define arguments passed to generate_embed_data
 set(_ARGS)
 list(APPEND _ARGS "--output_header=custom.imports.h")
 list(APPEND _ARGS "--output_impl=custom.imports.cc")
@@ -158,8 +158,8 @@ add_custom_command(
   OUTPUT
     "custom.imports.h"
     "custom.imports.cc"
-  COMMAND generate_cc_embed_data ${_ARGS}
-  DEPENDS generate_cc_embed_data custom.imports.mlir
+  COMMAND generate_embed_data ${_ARGS}
+  DEPENDS generate_embed_data custom.imports.mlir
 )
 
 

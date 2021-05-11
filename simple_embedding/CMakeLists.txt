@@ -36,10 +36,10 @@ add_custom_command(
 
 
 #-------------------------------------------------------------------------------
-# Embedd the VM bytcode module into a cc file via `generate_cc_embed_data`.
+# Embedd the VM bytcode module into a cc file via `generate_embed_data`.
 #-------------------------------------------------------------------------------
 
-# Define arguments passed to generate_cc_embed_data
+# Define arguments passed to generate_embed_data
 set(_ARGS)
 list(APPEND _ARGS "--output_header=simple_embedding_test_bytecode_module.h")
 list(APPEND _ARGS "--output_impl=simple_embedding_test_bytecode_module.cc")
@@ -53,8 +53,8 @@ add_custom_command(
   OUTPUT
     "simple_embedding_test_bytecode_module.h"
     "simple_embedding_test_bytecode_module.cc"
-  COMMAND generate_cc_embed_data ${_ARGS}
-  DEPENDS generate_cc_embed_data simple_embedding_test_bytecode_module.vmfb
+  COMMAND generate_embed_data ${_ARGS}
+  DEPENDS generate_embed_data simple_embedding_test_bytecode_module.vmfb
 )
 
 
@@ -91,9 +91,9 @@ target_link_libraries(simple_embedding_test
   simple_embedding_test_bytecode_module_cc
   absl_core_headers
   absl_strings
-  iree_base_api
+  iree_base_base
   iree_base_logging
-  iree_hal_api
+  iree_hal_hal
   iree_hal_vmla_registration_registration
   # Uncomment the line below to use vulkan-spirv backend
   #iree_hal_vulkan_registration_registration

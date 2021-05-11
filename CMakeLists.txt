@@ -10,8 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IREE requires a minimum CMake version of 3.13
-cmake_minimum_required(VERSION 3.13)
+# IREE requires a minimum CMake version of 3.13.4
+cmake_minimum_required(VERSION 3.13.4)
 
 #-------------------------------------------------------------------------------
 # Project configuration
