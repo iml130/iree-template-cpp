@@ -35,10 +35,10 @@ add_custom_command(
 
 
 #-------------------------------------------------------------------------------
-# Embedd the VM bytcode module into a cc file via `generate_cc_embed_data`.
+# Embedd the VM bytcode module into a cc file via `generate_embed_data`.
 #-------------------------------------------------------------------------------
 
-# Define arguments passed to generate_cc_embed_data
+# Define arguments passed to generate_embed_data
 set(_ARGS)
 list(APPEND _ARGS "--output_header=custom_modules_test_module.h")
 list(APPEND _ARGS "--output_impl=custom_modules_test_module.cc")
@@ -52,8 +52,8 @@ add_custom_command(
   OUTPUT
     "custom_modules_test_module.h"
     "custom_modules_test_module.cc"
-  COMMAND generate_cc_embed_data ${_ARGS}
-  DEPENDS generate_cc_embed_data custom_modules_test_module.vmfb
+  COMMAND generate_embed_data ${_ARGS}
+  DEPENDS generate_embed_data custom_modules_test_module.vmfb
 )
 
 
@@ -73,30 +73,27 @@ target_sources(custom_modules_test_module_cc
 # Build a excutable for testing.
 #-------------------------------------------------------------------------------
 
-add_executable(custom_modules_test "")
-target_sources(custom_modules_test
+add_executable(extern_custom_modules_test "")
+target_sources(extern_custom_modules_test
   PRIVATE
     custom_modules_test.cc
 )
 
-set_target_properties(custom_modules_test PROPERTIES OUTPUT_NAME custom_modules_test)
+set_target_properties(extern_custom_modules_test PROPERTIES OUTPUT_NAME extern_custom_modules_test)
 
-target_include_directories(custom_modules_test
+target_include_directories(extern_custom_modules_test
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${iree_SOURCE_DIR}
-    ${iree_SOURCE_DIR}/third_party/abseil-cpp/
 )
 
-target_link_libraries(custom_modules_test
+target_link_libraries(extern_custom_modules_test
   custom_modules_test_module_cc
   native_module
-  absl_core_headers
-  absl_strings
-  iree_base_api
+  iree_base_base
   iree_base_logging
-  iree_hal_api
+  iree_hal_hal
   iree_hal_vmla_registration_registration
   iree_modules_hal_hal
   iree_testing_gtest
@@ -124,8 +121,8 @@ target_include_directories(native_module
 )
 
 target_link_libraries(native_module
-  iree_base_api
-  iree_hal_api
+  iree_base_base
+  iree_hal_hal
   iree_modules_hal_hal
   iree_vm_vm
   iree_vm_cc

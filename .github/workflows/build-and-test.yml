@@ -35,6 +35,6 @@ jobs:
           -DCMAKE_CXX_COMPILER=clang++-10 \
           -DIREE_HAL_DRIVERS_TO_BUILD="VMLA" \
           -DIREE_TARGET_BACKENDS_TO_BUILD="VMLA"
-        cmake --build . --target custom_modules_test simple_embedding_test
-        ./custom_modules/custom_modules_test
+        cmake --build . --target extern_custom_modules_test simple_embedding_test
+        ./custom_modules/extern_custom_modules_test
         ./simple_embedding/simple_embedding_test

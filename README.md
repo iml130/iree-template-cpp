@@ -17,7 +17,7 @@ The template is developed by Marius Brehler at Fraunhofer IML.
 ### Prerequisites
 
 Since this template demonstrates how to use IREE compontens out-of-tree, the prerequisites match those of IREE, documented in the [Getting Started on Linux with CMake](https://google.github.io/iree/get-started/getting-started-linux-cmake) guide.
-Make sure you have CMake >= 3.13 and Clang installed. GCC is not fully supported yet.
+Make sure you have CMake >= 3.13.4 and Clang installed. GCC is not fully supported yet.
 
 ### Clone and Build
 #### Clone
