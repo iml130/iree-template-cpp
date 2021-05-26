@@ -17,7 +17,7 @@
 #include "iree/base/api.h"
 #include "iree/base/logging.h"
 #include "iree/hal/api.h"
-#include "iree/hal/vmla/registration/driver_module.h"
+#include "iree/hal/vmvx/registration/driver_module.h"
 // Include the line below to use the vulkan backend.
 //#include "iree/hal/vulkan/registration/driver_module.h"
 #include "iree/modules/hal/hal_module.h"
@@ -44,14 +44,14 @@ std::ostream& operator<<(std::ostream& os, const TestParams& params) {
 }
 
 std::vector<TestParams> GetDriverTestParams() {
-  // The test file was compiled for VMLA+Vulkan, so test on each driver.
+  // The test file was compiled for VMVX+Vulkan, so test on each driver.
   std::vector<TestParams> test_params;
 
   IREE_CHECK_OK(
-      iree_hal_vmla_driver_module_register(iree_hal_driver_registry_default()));
-  TestParams vmla_params;
-  vmla_params.driver_name = "vmla";
-  test_params.push_back(std::move(vmla_params));
+      iree_hal_vmvx_driver_module_register(iree_hal_driver_registry_default()));
+  TestParams vmvx_params;
+  vmvx_params.driver_name = "vmvx";
+  test_params.push_back(std::move(vmvx_params));
 
   // Uncomment the code block below to test the vulkan backend.
   /*

@@ -35,23 +35,22 @@ add_custom_command(
 
 
 #-------------------------------------------------------------------------------
-# Embedd the VM bytcode module into a cc file via `generate_embed_data`.
+# Embedd the VM bytcode module into a c file via `generate_embed_data`.
 #-------------------------------------------------------------------------------
 
 # Define arguments passed to generate_embed_data
 set(_ARGS)
 list(APPEND _ARGS "--output_header=custom_modules_test_module.h")
-list(APPEND _ARGS "--output_impl=custom_modules_test_module.cc")
+list(APPEND _ARGS "--output_impl=custom_modules_test_module.c")
 list(APPEND _ARGS "--identifier=custom_modules_test_module")
-list(APPEND _ARGS "--cpp_namespace=iree::samples::custom_modules")
 list(APPEND _ARGS "--flatten")
 list(APPEND _ARGS "custom_modules_test_module.vmfb")
 
-# Embed VM bytecode module into cc source file
+# Embed VM bytecode module into c source file
 add_custom_command(
   OUTPUT
     "custom_modules_test_module.h"
-    "custom_modules_test_module.cc"
+    "custom_modules_test_module.c"
   COMMAND generate_embed_data ${_ARGS}
   DEPENDS generate_embed_data custom_modules_test_module.vmfb
 )
@@ -61,10 +60,10 @@ add_custom_command(
 # Create a library and thus a CMake target.
 #-------------------------------------------------------------------------------
 
-add_library(custom_modules_test_module_cc STATIC "")
-target_sources(custom_modules_test_module_cc
+add_library(custom_modules_test_module_c STATIC "")
+target_sources(custom_modules_test_module_c
   PRIVATE
-    custom_modules_test_module.cc
+    custom_modules_test_module.c
     custom_modules_test_module.h
 )
 
@@ -89,12 +88,12 @@ target_include_directories(extern_custom_modules_test
 )
 
 target_link_libraries(extern_custom_modules_test
-  custom_modules_test_module_cc
+  custom_modules_test_module_c
   native_module
   iree_base_base
   iree_base_logging
   iree_hal_hal
-  iree_hal_vmla_registration_registration
+  iree_hal_vmvx_registration_registration
   iree_modules_hal_hal
   iree_testing_gtest
   iree_testing_gtest_main

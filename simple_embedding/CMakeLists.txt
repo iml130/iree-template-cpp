@@ -20,7 +20,7 @@ set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree_tools_iree-translate>)
 # Define arguments passed to iree-translate
 set(_ARGS)
 list(APPEND _ARGS "-iree-mlir-to-vm-bytecode-module")
-list(APPEND _ARGS "-iree-hal-target-backends=vmla")
+list(APPEND _ARGS "-iree-hal-target-backends=vmvx")
 # Uncomment the line below to use vulkan-spirv backend
 #list(APPEND _ARGS "-iree-hal-target-backends=vulkan-spirv")
 list(APPEND _ARGS "${CMAKE_CURRENT_SOURCE_DIR}/simple_embedding_test.mlir")
@@ -36,23 +36,22 @@ add_custom_command(
 
 
 #-------------------------------------------------------------------------------
-# Embedd the VM bytcode module into a cc file via `generate_embed_data`.
+# Embedd the VM bytcode module into a c file via `generate_embed_data`.
 #-------------------------------------------------------------------------------
 
 # Define arguments passed to generate_embed_data
 set(_ARGS)
 list(APPEND _ARGS "--output_header=simple_embedding_test_bytecode_module.h")
-list(APPEND _ARGS "--output_impl=simple_embedding_test_bytecode_module.cc")
+list(APPEND _ARGS "--output_impl=simple_embedding_test_bytecode_module.c")
 list(APPEND _ARGS "--identifier=simple_embedding_test_bytecode_module")
-list(APPEND _ARGS "--cpp_namespace=iree::samples")
 list(APPEND _ARGS "--flatten")
 list(APPEND _ARGS "simple_embedding_test_bytecode_module.vmfb")
 
-# Embed VM bytecode module into cc source file
+# Embed VM bytecode module into c source file
 add_custom_command(
   OUTPUT
     "simple_embedding_test_bytecode_module.h"
-    "simple_embedding_test_bytecode_module.cc"
+    "simple_embedding_test_bytecode_module.c"
   COMMAND generate_embed_data ${_ARGS}
   DEPENDS generate_embed_data simple_embedding_test_bytecode_module.vmfb
 )
@@ -62,10 +61,10 @@ add_custom_command(
 # Create a library and thus a CMake target.
 #-------------------------------------------------------------------------------
 
-add_library(simple_embedding_test_bytecode_module_cc STATIC "")
-target_sources(simple_embedding_test_bytecode_module_cc
+add_library(simple_embedding_test_bytecode_module_c STATIC "")
+target_sources(simple_embedding_test_bytecode_module_c
   PRIVATE
-    simple_embedding_test_bytecode_module.cc
+    simple_embedding_test_bytecode_module.c
     simple_embedding_test_bytecode_module.h
 )
 
@@ -88,13 +87,13 @@ target_include_directories(simple_embedding_test
 )
 
 target_link_libraries(simple_embedding_test
-  simple_embedding_test_bytecode_module_cc
+  simple_embedding_test_bytecode_module_c
   absl_core_headers
   absl_strings
   iree_base_base
   iree_base_logging
   iree_hal_hal
-  iree_hal_vmla_registration_registration
+  iree_hal_vmvx_registration_registration
   # Uncomment the line below to use vulkan-spirv backend
   #iree_hal_vulkan_registration_registration
   iree_modules_hal_hal

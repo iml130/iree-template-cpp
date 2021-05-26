@@ -141,23 +141,22 @@ add_dependencies(custom_ops_gen custom_ops_gen_target)
 
 
 #-------------------------------------------------------------------------------
-# Embedd the MLIR file into a cc file via `generate_embed_data`.
+# Embedd the MLIR file into a c file via `generate_embed_data`.
 #-------------------------------------------------------------------------------
 
 # Define arguments passed to generate_embed_data
 set(_ARGS)
 list(APPEND _ARGS "--output_header=custom.imports.h")
-list(APPEND _ARGS "--output_impl=custom.imports.cc")
+list(APPEND _ARGS "--output_impl=custom.imports.c")
 list(APPEND _ARGS "--identifier=custom_imports")
-list(APPEND _ARGS "--cpp_namespace=mlir::iree_compiler::IREE::Custom")
 list(APPEND _ARGS "--flatten")
 list(APPEND _ARGS "${CMAKE_CURRENT_SOURCE_DIR}/custom.imports.mlir")
 
-# Embed the MLIR file into cc source file
+# Embed the MLIR file into c source file
 add_custom_command(
   OUTPUT
     "custom.imports.h"
-    "custom.imports.cc"
+    "custom.imports.c"
   COMMAND generate_embed_data ${_ARGS}
   DEPENDS generate_embed_data custom.imports.mlir
 )
@@ -170,6 +169,6 @@ add_custom_command(
 add_library(custom_imports STATIC "")
 target_sources(custom_imports
   PRIVATE
-    custom.imports.cc
+    custom.imports.c
     custom.imports.h
 )
