@@ -70,36 +70,29 @@ target_sources(simple_embedding_test_bytecode_module_c
 
 
 #-------------------------------------------------------------------------------
-# Build a excutable for testing.
+# Build the excutable.
 #-------------------------------------------------------------------------------
 
-add_executable(simple_embedding_test "")
-target_sources(simple_embedding_test
+add_executable(simple_embedding "")
+target_sources(simple_embedding
   PRIVATE
-    simple_embedding_test.cc
+    simple_embedding.c
+    device_vmvx.c
 )
 
-set_target_properties(simple_embedding_test PROPERTIES OUTPUT_NAME simple_embedding_test)
+set_target_properties(simple_embedding PROPERTIES OUTPUT_NAME simple_embedding)
 
-target_include_directories(simple_embedding_test
+target_include_directories(simple_embedding
   PUBLIC
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_link_libraries(simple_embedding_test
+target_link_libraries(simple_embedding
   simple_embedding_test_bytecode_module_c
-  absl_core_headers
-  absl_strings
   iree_base_base
-  iree_base_logging
   iree_hal_hal
   iree_hal_vmvx_registration_registration
-  # Uncomment the line below to use vulkan-spirv backend
-  #iree_hal_vulkan_registration_registration
   iree_modules_hal_hal
-  iree_testing_gtest
-  iree_testing_gtest_main
   iree_vm_vm
   iree_vm_bytecode_module
-  iree_vm_cc
 )
