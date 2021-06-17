@@ -18,7 +18,6 @@
 #include "native_module.h"
 
 #include "iree/base/api.h"
-#include "iree/base/logging.h"
 #include "iree/hal/api.h"
 #include "iree/hal/vmvx/registration/driver_module.h"
 #include "iree/modules/hal/hal_module.h"
@@ -58,8 +57,7 @@ class CustomModulesTest : public ::testing::Test {
 
     IREE_CHECK_OK(iree_custom_native_module_register_types());
     IREE_CHECK_OK(iree_custom_native_module_create(iree_allocator_system(),
-                                                   &native_module_))
-        << "Native module failed to init";
+                                                   &native_module_));
 
     const auto* module_file_toc =
         custom_modules_test_module_create();
@@ -67,8 +65,7 @@ class CustomModulesTest : public ::testing::Test {
         iree_const_byte_span_t{
             reinterpret_cast<const uint8_t*>(module_file_toc->data),
             module_file_toc->size},
-        iree_allocator_null(), iree_allocator_system(), &bytecode_module_))
-        << "Bytecode module failed to load";
+        iree_allocator_null(), iree_allocator_system(), &bytecode_module_));
 
     std::vector<iree_vm_module_t*> modules = {hal_module_, native_module_,
                                               bytecode_module_};
@@ -89,8 +86,7 @@ class CustomModulesTest : public ::testing::Test {
     iree_vm_function_t function;
     IREE_CHECK_OK(bytecode_module_->lookup_function(
         bytecode_module_->self, IREE_VM_FUNCTION_LINKAGE_EXPORT,
-        iree_make_cstring_view(function_name), &function))
-        << "Exported function '" << function_name << "' not found";
+        iree_make_cstring_view(function_name), &function));
     return function;
   }
 
@@ -142,22 +138,26 @@ TEST_F(CustomModulesTest, ReverseAndPrint) {
 
 TEST_F(CustomModulesTest, PrintTensor) {
   // Allocate the buffer we'll be printing.
+  static iree_hal_dim_t kShape[] = {2, 4};
   static float kBufferContents[2 * 4] = {0.0f, 1.0f, 2.0f, 3.0f,
                                          4.0f, 5.0f, 6.0f, 7.0f};
-  iree_hal_buffer_t* buffer = nullptr;
-  IREE_ASSERT_OK(iree_hal_allocator_wrap_buffer(
-      hal_allocator_, IREE_HAL_MEMORY_TYPE_HOST_LOCAL,
+  iree_hal_buffer_view_t* buffer_view = nullptr;
+  IREE_ASSERT_OK(iree_hal_buffer_view_wrap_or_clone_heap_buffer(
+      hal_allocator_, kShape, IREE_ARRAYSIZE(kShape),
+      IREE_HAL_ELEMENT_TYPE_FLOAT_32,
+      IREE_HAL_MEMORY_TYPE_HOST_LOCAL | IREE_HAL_MEMORY_TYPE_DEVICE_VISIBLE,
       IREE_HAL_MEMORY_ACCESS_ALL, IREE_HAL_BUFFER_USAGE_ALL,
-      iree_byte_span_t{reinterpret_cast<uint8_t*>(kBufferContents),
-                       sizeof(kBufferContents)},
-      iree_allocator_null(), &buffer));
+      iree_make_byte_span((void*)kBufferContents, sizeof(kBufferContents)),
+      iree_allocator_null(), &buffer_view));
 
   // Pass in the tensor as an expanded HAL buffer.
   iree::vm::ref<iree_vm_list_t> inputs;
   IREE_ASSERT_OK(iree_vm_list_create(/*element_type=*/nullptr, 1,
                                      iree_allocator_system(), &inputs));
-  iree_vm_ref_t input_buffer_ref = iree_hal_buffer_move_ref(buffer);
-  IREE_ASSERT_OK(iree_vm_list_push_ref_move(inputs.get(), &input_buffer_ref));
+  iree_vm_ref_t input_buffer_view_ref =
+      iree_hal_buffer_view_move_ref(buffer_view);
+  IREE_ASSERT_OK(
+      iree_vm_list_push_ref_move(inputs.get(), &input_buffer_view_ref));
 
   // Prepare outputs list to accept the results from the invocation.
   iree::vm::ref<iree_vm_list_t> outputs;
@@ -182,22 +182,26 @@ TEST_F(CustomModulesTest, PrintTensor) {
 
 TEST_F(CustomModulesTest, RoundTripTensor) {
   // Allocate the buffer we'll be printing/parsing.
+  static iree_hal_dim_t kShape[] = {2, 4};
   static float kBufferContents[2 * 4] = {0.0f, 1.0f, 2.0f, 3.0f,
                                          4.0f, 5.0f, 6.0f, 7.0f};
-  iree_hal_buffer_t* buffer = nullptr;
-  IREE_ASSERT_OK(iree_hal_allocator_wrap_buffer(
-      hal_allocator_, IREE_HAL_MEMORY_TYPE_HOST_LOCAL,
+  iree_hal_buffer_view_t* buffer_view = nullptr;
+  IREE_ASSERT_OK(iree_hal_buffer_view_wrap_or_clone_heap_buffer(
+      hal_allocator_, kShape, IREE_ARRAYSIZE(kShape),
+      IREE_HAL_ELEMENT_TYPE_FLOAT_32,
+      IREE_HAL_MEMORY_TYPE_HOST_LOCAL | IREE_HAL_MEMORY_TYPE_DEVICE_VISIBLE,
       IREE_HAL_MEMORY_ACCESS_ALL, IREE_HAL_BUFFER_USAGE_ALL,
-      iree_byte_span_t{reinterpret_cast<uint8_t*>(kBufferContents),
-                       sizeof(kBufferContents)},
-      iree_allocator_null(), &buffer));
+      iree_make_byte_span((void*)kBufferContents, sizeof(kBufferContents)),
+      iree_allocator_null(), &buffer_view));
 
   // Pass in the tensor as an expanded HAL buffer.
   iree::vm::ref<iree_vm_list_t> inputs;
   IREE_ASSERT_OK(iree_vm_list_create(/*element_type=*/nullptr, 1,
                                      iree_allocator_system(), &inputs));
-  iree_vm_ref_t input_buffer_ref = iree_hal_buffer_move_ref(buffer);
-  IREE_ASSERT_OK(iree_vm_list_push_ref_move(inputs.get(), &input_buffer_ref));
+  iree_vm_ref_t input_buffer_view_ref =
+      iree_hal_buffer_view_move_ref(buffer_view);
+  IREE_ASSERT_OK(
+      iree_vm_list_push_ref_move(inputs.get(), &input_buffer_view_ref));
 
   // Prepare outputs list to accept the results from the invocation.
   iree::vm::ref<iree_vm_list_t> outputs;
