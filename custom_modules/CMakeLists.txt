@@ -120,7 +120,9 @@ target_include_directories(native_module
 )
 
 target_link_libraries(native_module
+  absl_span
   iree_base_base
+  iree_base_status
   iree_hal_hal
   iree_modules_hal_hal
   iree_vm_vm

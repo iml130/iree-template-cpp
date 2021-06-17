@@ -21,7 +21,6 @@
 
 #include "init_dialect.h"
 
-#include "iree/compiler/Conversion/init_conversions.h"
 #include "iree/compiler/Dialect/VM/Target/init_targets.h"
 #include "iree/tools/init_compiler_modules.h"
 #include "iree/tools/init_iree_dialects.h"
@@ -71,7 +70,8 @@ int main(int argc, char **argv) {
   mlir::iree_compiler::registerVMTargets();
   mlir::registerMlirTranslations();
   mlir::iree_compiler::registerIreeTranslations();
-  mlir::iree_compiler::registerLinalgToSPIRVPasses();
+  // Make sure command line options are registered.
+  (void)mlir::iree_compiler::IREE::HAL::getTargetOptionsFromFlags();
 
   // Register MLIRContext command-line options like
   // -mlir-print-op-on-diagnostic.
