@@ -1,3 +1,5 @@
+// Copyright 2020 The IREE Authors
+//
 // Licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
@@ -7,9 +9,6 @@
 //
 // We need this entry function because we want to register the custom
 // dialect, which is missing in IREE's translation main entry function.
-//
-// An alternative approach is to link the dialect into the excutable as
-// whole archive.
 
 #include "init_dialect.h"
 

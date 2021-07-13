@@ -1,10 +1,12 @@
+// Copyright 2019 The IREE Authors
+//
 // Licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-// Tests that our bytecode module can call through into our native module.
+// Forked from IREE with modified includes and module name.
 
-// Forked from IREE with modified includes
+// Tests that our bytecode module can call through into our native module.
 
 #include "custom_modules_test_module.h"
 #include "native_module.h"

@@ -1,8 +1,10 @@
+// Copyright 2019 The IREE Authors
+//
 // Licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-// Forked from IREE with modified includes
+// Forked from IREE with modified includes and module names.
 
 #include "custom_dialect.h"
 #include "conversion_patterns.h"
