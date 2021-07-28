@@ -22,6 +22,7 @@ set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:custom_translate>)
 # Define arguments passed to iree-translate
 set(_ARGS)
 list(APPEND _ARGS "-iree-mlir-to-vm-bytecode-module")
+list(APPEND _ARGS "-iree-hal-target-backends=vmvx")
 list(APPEND _ARGS "${CMAKE_CURRENT_SOURCE_DIR}/custom_modules_test.mlir")
 list(APPEND _ARGS "-o")
 list(APPEND _ARGS "custom_modules_test_module.vmfb")
