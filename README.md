@@ -8,7 +8,7 @@ However, we welcome any kind of feedback via the issue tracker or if appropriate
 
 The IREE C++ template demonstrates how to integrate [IREE](https://github.com/google/iree) into a third-party project with CMake.
 IREE runtime support is demonstrated via the `simple_embedding` sample forked from IREE, where the original source can be found [here](https://github.com/google/iree/tree/master/iree/samples/simple_embedding).
-The `custom_modules` sample further demonstrates the out-of-tree usage of a custom dialect alongside with the runtime. The original `custom_modules` source can be found [here](https://github.com/google/iree/tree/master/iree/samples/custom_dialect).
+The `custom_modules` sample further demonstrates the out-of-tree usage of a custom dialect alongside with the runtime. The original `custom_modules` source can be found [here](https://github.com/google/iree/tree/main/iree/samples/custom_modules).
 
 The template is developed by Marius Brehler at Fraunhofer IML.
 
@@ -16,7 +16,7 @@ The template is developed by Marius Brehler at Fraunhofer IML.
 
 ### Prerequisites
 
-Since this template demonstrates how to use IREE compontens out-of-tree, the prerequisites match those of IREE, documented in the [Getting Started on Linux with CMake](https://google.github.io/iree/get-started/getting-started-linux-cmake) guide.
+Since this template demonstrates how to use IREE compontens out-of-tree, the prerequisites match those of IREE, documented in the [Getting started](https://google.github.io/iree/building-from-source/getting-started/) guide.
 Make sure you have CMake >= 3.13.4 and Clang installed. GCC is not fully supported yet.
 
 ### Clone and Build
@@ -63,7 +63,7 @@ Explore the samples `simple_embedding` and `custom_modules` within the build dir
 * `custom_modules_test`: Test executable.
 
 `custom_modules/dialect`
-* `custom-opt`: See the related documentation for [iree-opt](https://google.github.io/iree/DeveloperOverview#iree-opt) documentation.
-* `custom-translate`: See the related documentation for [iree-translate](https://google.github.io/iree/DeveloperOverview#iree-translate) documentation.
+* `custom-opt`: See the related documentation for [iree-opt](https://github.com/google/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-opt) documentation.
+* `custom-translate`: See the related documentation for [iree-translate](https://github.com/google/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-translate) documentation.
 
 Of course it's also worth to explore the corresponding CMake configuration.
