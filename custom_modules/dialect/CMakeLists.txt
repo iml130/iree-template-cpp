@@ -46,7 +46,7 @@ target_link_libraries(dialect
   MLIRTransforms
   iree_compiler_Dialect_HAL_Conversion_Conversion
   iree_compiler_Dialect_HAL_IR_IR
-  iree_compiler_Dialect_IREE_IR_IR
+  iree_compiler_Dialect_Util_IR_IR
   iree_compiler_Dialect_VM_Conversion_Conversion
 )
 
