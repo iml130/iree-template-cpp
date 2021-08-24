@@ -164,14 +164,11 @@ iree_status_t Run() {
 
 int main() {
   const iree_status_t result = Run();
+  int ret = (int)iree_status_code(result);
   if (!iree_status_is_ok(result)) {
-    char* message;
-    size_t message_length;
-    iree_status_to_string(result, &message, &message_length);
-    fprintf(stderr, "simple_embedding_run failed: %s\n", message);
-    iree_allocator_free(iree_allocator_system(), message);
-    return -1;
+    iree_status_fprint(stderr, result);
+    iree_status_free(result);
   }
-  printf("simple_embedding_run passed\n");
-  return 0;
+  fprintf(stdout, "simple_embedding done\n");
+  return ret;
 }
