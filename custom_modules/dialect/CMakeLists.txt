@@ -28,12 +28,12 @@ target_sources(dialect
 target_include_directories(dialect
   PUBLIC
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${iree_SOURCE_DIR}
-    ${iree_SOURCE_DIR}/third_party/llvm-project/llvm/include
-    ${iree_SOURCE_DIR}/third_party/llvm-project/mlir/include
-    ${iree_BINARY_DIR}
-    ${iree_BINARY_DIR}/third_party/llvm-project/llvm/include
-    ${iree_BINARY_DIR}/third_party/llvm-project/llvm/tools/mlir/include
+    ${IREE_SOURCE_DIR}
+    ${IREE_SOURCE_DIR}/third_party/llvm-project/llvm/include
+    ${IREE_SOURCE_DIR}/third_party/llvm-project/mlir/include
+    ${IREE_BINARY_DIR}
+    ${IREE_BINARY_DIR}/third_party/llvm-project/llvm/include
+    ${IREE_BINARY_DIR}/third_party/llvm-project/llvm/tools/mlir/include
 )
 
 target_link_libraries(dialect
@@ -123,9 +123,9 @@ target_link_libraries(custom_translate
 set(MLIR_TABLEGEN_EXE mlir-tblgen)
 
 set(LLVM_TARGET_DEFINITIONS "custom_ops.td")
-set(_TBLGEN_INCLUDE_DIRS ${iree_SOURCE_DIR})
+set(_TBLGEN_INCLUDE_DIRS ${IREE_SOURCE_DIR})
 list(APPEND _TBLGEN_INCLUDE_DIRS
-  ${iree_SOURCE_DIR}/third_party/llvm-project/mlir/include
+  ${IREE_SOURCE_DIR}/third_party/llvm-project/mlir/include
 )
 list(TRANSFORM _TBLGEN_INCLUDE_DIRS PREPEND "-I")
 

@@ -85,7 +85,7 @@ target_include_directories(extern_custom_modules_test
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${iree_SOURCE_DIR}
+    ${IREE_SOURCE_DIR}
 )
 
 target_link_libraries(extern_custom_modules_test
@@ -117,7 +117,7 @@ target_sources(native_module
 
 target_include_directories(native_module
   PUBLIC
-    ${iree_SOURCE_DIR}
+    ${IREE_SOURCE_DIR}
 )
 
 target_link_libraries(native_module
