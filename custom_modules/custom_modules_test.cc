@@ -64,8 +64,8 @@ class CustomModulesTest : public ::testing::Test {
     std::vector<iree_vm_module_t*> modules = {hal_module_, native_module_,
                                               bytecode_module_};
     IREE_CHECK_OK(iree_vm_context_create_with_modules(
-        instance_, modules.data(), modules.size(), iree_allocator_system(),
-        &context_));
+        instance_, IREE_VM_CONTEXT_FLAG_NONE, modules.data(), modules.size(),
+        iree_allocator_system(), &context_));
   }
 
   virtual void TearDown() {
@@ -116,6 +116,7 @@ TEST_F(CustomModulesTest, ReverseAndPrint) {
 
   // Synchronously invoke the function.
   IREE_ASSERT_OK(iree_vm_invoke(context_, LookupFunction("reverseAndPrint"),
+                                IREE_VM_INVOCATION_FLAG_NONE,
                                 /*policy=*/nullptr, inputs.get(), outputs.get(),
                                 iree_allocator_system()));
 
@@ -160,6 +161,7 @@ TEST_F(CustomModulesTest, PrintTensor) {
 
   // Synchronously invoke the function.
   IREE_ASSERT_OK(iree_vm_invoke(context_, LookupFunction("printTensor"),
+                                IREE_VM_INVOCATION_FLAG_NONE,
                                 /*policy=*/nullptr, inputs.get(), outputs.get(),
                                 iree_allocator_system()));
 
@@ -204,6 +206,7 @@ TEST_F(CustomModulesTest, RoundTripTensor) {
 
   // Synchronously invoke the function.
   IREE_ASSERT_OK(iree_vm_invoke(context_, LookupFunction("roundTripTensor"),
+                                IREE_VM_INVOCATION_FLAG_NONE,
                                 /*policy=*/nullptr, inputs.get(), outputs.get(),
                                 iree_allocator_system()));
 
