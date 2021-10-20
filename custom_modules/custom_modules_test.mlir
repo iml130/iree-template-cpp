@@ -1,16 +1,8 @@
-// Copyright 2019 Google LLC
+// Copyright 2019 The IREE Authors
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Licensed under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 // Prints the %message provided reversed %count times using the native
 // implementation of the "custom.print" op.
@@ -19,7 +11,7 @@
 // custom_modules/dialect/custom.imports.mlir for the import definitions.
 func @reverseAndPrint(%message : !custom.message, %count : i32) -> !custom.message
     attributes { iree.module.export, iree.abi.none } {
-  %c1 = constant 1 : i32
+  %c1 = arith.constant 1 : i32
   %0 = "custom.get_unique_message"() : () -> !custom.message
   "custom.print"(%0, %c1) : (!custom.message, i32) -> ()
   %1 = call @reverse(%message) : (!custom.message) -> !custom.message
@@ -37,7 +29,7 @@ func @reverse(%message : !custom.message) -> !custom.message {
 func @printTensor(%tensor : tensor<2x4xf32>) -> !custom.message
     attributes { iree.module.export, iree.abi.none } {
   %0 = "custom.tensor_to_message"(%tensor) : (tensor<2x4xf32>) -> !custom.message
-  %c1 = constant 1 : i32
+  %c1 = arith.constant 1 : i32
   "custom.print"(%0, %c1) : (!custom.message, i32) -> ()
   return %0 : !custom.message
 }
@@ -48,7 +40,7 @@ func @roundTripTensor(%tensor : tensor<2x4xf32>) -> !custom.message
   %0 = "custom.tensor_to_message"(%tensor) : (tensor<2x4xf32>) -> !custom.message
   %1 = "custom.message_to_tensor"(%0) : (!custom.message) -> tensor<2x4xf32>
   %2 = "custom.tensor_to_message"(%1) : (tensor<2x4xf32>) -> !custom.message
-  %c1 = constant 1 : i32
+  %c1 = arith.constant 1 : i32
   "custom.print"(%2, %c1) : (!custom.message, i32) -> ()
   return %0 : !custom.message
 }
