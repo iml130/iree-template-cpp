@@ -17,7 +17,7 @@ The template is developed by Marius Brehler at Fraunhofer IML.
 ### Prerequisites
 
 Since this template demonstrates how to use IREE compontens out-of-tree, the prerequisites match those of IREE, documented in the [Getting started](https://google.github.io/iree/building-from-source/getting-started/) guide.
-Make sure you have CMake >= 3.13.4 and Clang installed. GCC is not fully supported yet.
+Make sure you have CMake >= 3.16.3 and clang installed.
 
 ### Clone and Build
 #### Clone
@@ -60,7 +60,7 @@ Explore the samples `simple_embedding` and `custom_modules` within the build dir
 * `simple_embedding_test`: Test executable.
 
 `custom_modules`
-* `custom_modules_test`: Test executable.
+* `extern_custom_modules_test`: Test executable.
 
 `custom_modules/dialect`
 * `custom-opt`: See the related documentation for [iree-opt](https://github.com/google/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-opt) documentation.
