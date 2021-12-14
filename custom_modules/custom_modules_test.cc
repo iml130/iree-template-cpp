@@ -50,8 +50,8 @@ class CustomModulesTest : public ::testing::Test {
     iree_hal_driver_release(hal_driver);
 
     IREE_CHECK_OK(iree_custom_native_module_register_types());
-    IREE_CHECK_OK(iree_custom_native_module_create(iree_allocator_system(),
-                                                   &native_module_));
+    IREE_CHECK_OK(iree_custom_native_module_create(
+        iree_allocator_system(), hal_allocator_, &native_module_));
 
     const auto* module_file_toc =
         custom_modules_test_module_create();

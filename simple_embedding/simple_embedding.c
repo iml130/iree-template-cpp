@@ -4,8 +4,6 @@
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-// Forked from IREE (with modified includes).
-
 // A example of setting up the HAL module to run simple pointwise array
 // multiplication with the device implemented by different backends via
 // create_sample_driver().
@@ -18,12 +16,15 @@
 #include "iree/vm/api.h"
 #include "iree/vm/bytecode_module.h"
 
-#include "simple_embedding_test_bytecode_module.h"
-
 // A function to create the HAL device from the different backend targets.
 // The HAL device is returned based on the implementation, and it must be
 // released by the caller.
-extern iree_status_t create_sample_device(iree_hal_device_t** device);
+extern iree_status_t create_sample_device(iree_allocator_t host_allocator,
+                                          iree_hal_device_t** out_device);
+
+// A function to load the vm bytecode module from the different backend targets.
+// The bytecode module is generated for the specific backend and platform.
+extern const iree_const_byte_span_t load_bytecode_module_data();
 
 iree_status_t Run() {
   // TODO(benvanik): move to instance-based registration.
@@ -34,20 +35,16 @@ iree_status_t Run() {
       iree_vm_instance_create(iree_allocator_system(), &instance));
 
   iree_hal_device_t* device = NULL;
-  IREE_RETURN_IF_ERROR(create_sample_device(&device), "create device");
+  IREE_RETURN_IF_ERROR(create_sample_device(iree_allocator_system(), &device),
+                       "create device");
   iree_vm_module_t* hal_module = NULL;
   IREE_RETURN_IF_ERROR(
       iree_hal_module_create(device, iree_allocator_system(), &hal_module));
 
-  // Note the setup here only supports native build. The bytecode is not built
-  // for the cross-compile execution. The code can be compiled but it will
-  // hit runtime error in a cross-compile environment.
-  const struct iree_file_toc_t* module_file_toc =
-      simple_embedding_test_bytecode_module_create();
+  // Load bytecode module from the embedded data.
+  const iree_const_byte_span_t module_data = load_bytecode_module_data();
 
   iree_vm_module_t* bytecode_module = NULL;
-  iree_const_byte_span_t module_data =
-      iree_make_const_byte_span(module_file_toc->data, module_file_toc->size);
   IREE_RETURN_IF_ERROR(iree_vm_bytecode_module_create(
       module_data, iree_allocator_null(), iree_allocator_system(),
       &bytecode_module));

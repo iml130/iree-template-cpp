@@ -10,18 +10,32 @@
 #include "iree/hal/api.h"
 #include "iree/hal/vmvx/registration/driver_module.h"
 
-iree_status_t create_sample_device(iree_hal_device_t** device) {
+// Compiled module embedded here to avoid file IO:
+#include "simple_embedding_test_bytecode_module.h"
+
+iree_status_t create_sample_device(iree_allocator_t host_allocator,
+                                   iree_hal_device_t** out_device) {
   // Only register the VMVX HAL driver.
   IREE_RETURN_IF_ERROR(iree_hal_vmvx_driver_module_register(
       iree_hal_driver_registry_default()));
   // Create the hal driver from the name.
   iree_hal_driver_t* driver = NULL;
   iree_string_view_t identifier = iree_make_cstring_view("vmvx");
-  IREE_RETURN_IF_ERROR(iree_hal_driver_registry_try_create_by_name(
-      iree_hal_driver_registry_default(), identifier, iree_allocator_system(),
-      &driver));
-  IREE_RETURN_IF_ERROR(iree_hal_driver_create_default_device(
-      driver, iree_allocator_system(), device));
+  iree_status_t status = iree_hal_driver_registry_try_create_by_name(
+      iree_hal_driver_registry_default(), identifier, host_allocator, &driver);
+
+  if (iree_status_is_ok(status)) {
+    status = iree_hal_driver_create_default_device(driver, host_allocator,
+                                                   out_device);
+  }
+
   iree_hal_driver_release(driver);
   return iree_ok_status();
+}
+
+const iree_const_byte_span_t load_bytecode_module_data() {
+  const struct iree_file_toc_t* module_file_toc =
+      simple_embedding_test_bytecode_module_create();
+  return iree_make_const_byte_span(module_file_toc->data,
+                                   module_file_toc->size);
 }
