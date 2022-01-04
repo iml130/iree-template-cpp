@@ -33,8 +33,10 @@ jobs:
           -GNinja \
           -DCMAKE_C_COMPILER=clang-10 \
           -DCMAKE_CXX_COMPILER=clang++-10 \
-          -DIREE_HAL_DRIVERS_TO_BUILD="VMVX" \
-          -DIREE_TARGET_BACKENDS_TO_BUILD="VMVX"
+          -DIREE_HAL_DRIVER_DEFAULTS=OFF \
+          -DIREE_HAL_DRIVER_VMVX=ON \
+          -DIREE_TARGET_BACKEND_DEFAULTS=OFF \
+          -DIREE_TARGET_BACKEND_VMVX=ON
         cmake --build . --target extern_custom_modules_test simple_embedding
         ./custom_modules/extern_custom_modules_test
         ./simple_embedding/simple_embedding
