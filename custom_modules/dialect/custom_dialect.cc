@@ -7,15 +7,15 @@
 // Forked from IREE with modified includes and module names.
 
 #include "custom_dialect.h"
+
 #include "conversion_patterns.h"
 #include "custom.imports.h"
-
 #include "iree/compiler/Dialect/HAL/Conversion/ConversionDialectInterface.h"
 #include "iree/compiler/Dialect/VM/Conversion/ConversionDialectInterface.h"
 #include "llvm/ADT/StringSwitch.h"
 #include "mlir/IR/DialectImplementation.h"
 #include "mlir/IR/SymbolTable.h"
-#include "mlir/Parser.h"
+#include "mlir/Parser/Parser.h"
 #include "mlir/Transforms/DialectConversion.h"
 
 namespace mlir {
@@ -92,7 +92,7 @@ void CustomDialect::printType(Type type, DialectAsmPrinter &p) const {
   if (type.isa<MessageType>()) {
     p << "message";
   } else {
-    llvm_unreachable("unknown type");
+    assert(false && "unknown type");
   }
 }
 

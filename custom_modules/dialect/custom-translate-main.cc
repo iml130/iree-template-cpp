@@ -11,7 +11,6 @@
 // dialect, which is missing in IREE's translation main entry function.
 
 #include "init_dialect.h"
-
 #include "iree/compiler/Dialect/VM/Target/init_targets.h"
 #include "iree/tools/init_compiler_modules.h"
 #include "iree/tools/init_iree_dialects.h"
@@ -30,7 +29,7 @@
 #include "mlir/Support/FileUtilities.h"
 #include "mlir/Support/LogicalResult.h"
 #include "mlir/Support/ToolUtilities.h"
-#include "mlir/Translation.h"
+#include "mlir/Tools/mlir-translate/Translation.h"
 
 static llvm::cl::opt<std::string> inputFilename(llvm::cl::Positional,
                                                 llvm::cl::desc("<input file>"),
