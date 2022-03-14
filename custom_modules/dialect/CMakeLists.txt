@@ -107,7 +107,7 @@ target_link_libraries(custom_translate
   MLIRPass
   MLIRSCFTransforms
   MLIRSupport
-  MLIRTranslation
+  MLIRTranslateLib
   iree_compiler_Dialect_VM_Target_Bytecode_Bytecode
   iree_compiler_Dialect_VM_Target_init_targets
   iree_compiler_Translation_IREEVM

@@ -12,13 +12,12 @@
 // dialect, which is missing in IREE's opt main entry function.
 
 #include "init_dialect.h"
-
 #include "iree/tools/init_dialects.h"
 #include "iree/tools/init_passes.h"
 #include "iree/tools/init_targets.h"
 #include "llvm/Support/InitLLVM.h"
 #include "mlir/IR/Dialect.h"
-#include "mlir/Support/MlirOptMain.h"
+#include "mlir/Tools/mlir-opt/MlirOptMain.h"
 
 int main(int argc, char **argv) {
   llvm::InitLLVM y(argc, argv);
