@@ -64,6 +64,6 @@ Explore the samples `simple_embedding` and `custom_modules` within the build dir
 
 `custom_modules/dialect`
 * `custom-opt`: See the related documentation for [iree-opt](https://github.com/google/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-opt) documentation.
-* `custom-translate`: See the related documentation for [iree-translate](https://github.com/google/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-translate) documentation.
+* `custom-translate`: See the related documentation for [iree-compile](https://github.com/google/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-compile) documentation.
 
 Of course it's also worth to explore the corresponding CMake configuration.

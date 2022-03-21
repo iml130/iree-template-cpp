@@ -5,7 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 // Custom translation main entry function.
-// Forked from IREE's iree-translate main entry function (translate_main.cc).
+// Forked from IREE's iree-compile main entry function (translate_main.cc).
 //
 // We need this entry function because we want to register the custom
 // dialect, which is missing in IREE's translation main entry function.

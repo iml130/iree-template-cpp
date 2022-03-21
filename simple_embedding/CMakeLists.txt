@@ -11,13 +11,13 @@
 # limitations under the License.
 
 #-------------------------------------------------------------------------------
-# Use `iree-translate` to transform an MLIR file into an VM bytcode module.
+# Use `iree-compile` to transform an MLIR file into an VM bytcode module.
 #-------------------------------------------------------------------------------
 
-# Resolve the executable binary path for iree-translate from the target name.
-set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree_tools_iree-translate>)
+# Resolve the executable binary path for iree-compile from the target name.
+set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree_tools_iree-compile>)
 
-# Define arguments passed to iree-translate
+# Define arguments passed to iree-compile
 set(_ARGS)
 list(APPEND _ARGS "-iree-input-type=mhlo")
 list(APPEND _ARGS "-iree-mlir-to-vm-bytecode-module")
@@ -32,7 +32,7 @@ list(APPEND _ARGS "simple_embedding_test_bytecode_module.vmfb")
 add_custom_command(
   OUTPUT "simple_embedding_test_bytecode_module.vmfb"
   COMMAND ${_TRANSLATE_TOOL_EXECUTABLE} ${_ARGS}
-  DEPENDS iree_tools_iree-translate
+  DEPENDS iree_tools_iree-compile
 )
 
 
