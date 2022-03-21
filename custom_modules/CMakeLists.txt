@@ -19,7 +19,7 @@ add_subdirectory(dialect)
 # Resolve the executable binary path for custom-translate from the target name.
 set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:custom_translate>)
 
-# Define arguments passed to iree-translate
+# Define arguments passed to iree-compile
 set(_ARGS)
 list(APPEND _ARGS "-iree-mlir-to-vm-bytecode-module")
 list(APPEND _ARGS "-iree-hal-target-backends=vmvx")
