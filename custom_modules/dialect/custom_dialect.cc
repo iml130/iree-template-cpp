@@ -47,7 +47,7 @@ class CustomToVMConversionInterface : public VMConversionDialectInterface {
   using VMConversionDialectInterface::VMConversionDialectInterface;
 
   OwningOpRef<mlir::ModuleOp> parseVMImportModule() const override {
-    return mlir::parseSourceString(
+    return mlir::parseSourceString<mlir::ModuleOp>(
         StringRef(custom_imports_create()->data, custom_imports_create()->size),
         getDialect()->getContext());
   }
