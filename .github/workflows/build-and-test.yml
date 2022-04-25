@@ -38,5 +38,5 @@ jobs:
           -DIREE_TARGET_BACKEND_DEFAULTS=OFF \
           -DIREE_TARGET_BACKEND_VMVX=ON
         cmake --build . --target extern_custom_modules_test simple_embedding
-        ./custom_modules/extern_custom_modules_test
-        ./simple_embedding/simple_embedding
+        ./iree_custom_modules/extern_custom_modules_test
+        ./iree_simple_embedding/simple_embedding

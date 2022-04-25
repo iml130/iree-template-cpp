@@ -40,5 +40,5 @@ add_subdirectory(third_party/iree EXCLUDE_FROM_ALL)
 # Top-level components
 #-------------------------------------------------------------------------------
 
-add_subdirectory(simple_embedding)
-add_subdirectory(custom_modules)
+add_subdirectory(iree_simple_embedding)
+add_subdirectory(iree_custom_modules)

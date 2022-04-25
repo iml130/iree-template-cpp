@@ -16,8 +16,8 @@
 iree_status_t create_sample_device(iree_allocator_t host_allocator,
                                    iree_hal_device_t** out_device) {
   // Only register the VMVX HAL driver.
-  IREE_RETURN_IF_ERROR(iree_hal_vmvx_driver_module_register(
-      iree_hal_driver_registry_default()));
+  IREE_RETURN_IF_ERROR(
+      iree_hal_vmvx_driver_module_register(iree_hal_driver_registry_default()));
   // Create the hal driver from the name.
   iree_hal_driver_t* driver = NULL;
   iree_string_view_t identifier = iree_make_cstring_view("vmvx");
