@@ -9,8 +9,6 @@
 // Tests that our bytecode module can call through into our native module.
 
 #include "custom_modules_test_module.h"
-#include "native_module.h"
-
 #include "iree/base/api.h"
 #include "iree/hal/api.h"
 #include "iree/hal/vmvx/registration/driver_module.h"
@@ -20,6 +18,7 @@
 #include "iree/vm/api.h"
 #include "iree/vm/bytecode_module.h"
 #include "iree/vm/ref_cc.h"
+#include "native_module.h"
 
 namespace {
 
@@ -53,8 +52,7 @@ class CustomModulesTest : public ::testing::Test {
     IREE_CHECK_OK(iree_custom_native_module_create(
         iree_allocator_system(), hal_allocator_, &native_module_));
 
-    const auto* module_file_toc =
-        custom_modules_test_module_create();
+    const auto* module_file_toc = custom_modules_test_module_create();
     IREE_CHECK_OK(iree_vm_bytecode_module_create(
         iree_const_byte_span_t{
             reinterpret_cast<const uint8_t*>(module_file_toc->data),

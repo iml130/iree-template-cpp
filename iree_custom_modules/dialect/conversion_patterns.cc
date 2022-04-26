@@ -8,9 +8,9 @@
 
 #include "conversion_patterns.h"
 
+#include "custom_dialect.h"
 #include "iree/compiler/Dialect/HAL/Conversion/ConversionTarget.h"
 #include "iree/compiler/Dialect/VM/Conversion/ImportUtils.h"
-#include "custom_dialect.h"
 
 namespace mlir {
 namespace iree_compiler {
