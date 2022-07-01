@@ -15,7 +15,7 @@
 #-------------------------------------------------------------------------------
 
 # Resolve the executable binary path for iree-compile from the target name.
-set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree_tools_iree-compile>)
+set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree-compile>)
 
 # Define arguments passed to iree-compile
 set(_ARGS)
@@ -32,7 +32,7 @@ list(APPEND _ARGS "simple_embedding_test_bytecode_module.vmfb")
 add_custom_command(
   OUTPUT "simple_embedding_test_bytecode_module.vmfb"
   COMMAND ${_TRANSLATE_TOOL_EXECUTABLE} ${_ARGS}
-  DEPENDS iree_tools_iree-compile
+  DEPENDS iree-compile
 )
 
 
@@ -92,7 +92,8 @@ target_link_libraries(simple_embedding
   simple_embedding_test_bytecode_module_c
   iree_base_base
   iree_hal_hal
-  iree_hal_vmvx_registration_registration
+  iree_hal_drivers_local_task_registration_registration
+  iree_hal_local_loaders_vmvx_module_loader
   iree_modules_hal_hal
   iree_vm_vm
   iree_vm_bytecode_module
