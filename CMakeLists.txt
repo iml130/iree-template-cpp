@@ -41,4 +41,3 @@ add_subdirectory(third_party/iree EXCLUDE_FROM_ALL)
 #-------------------------------------------------------------------------------
 
 add_subdirectory(iree_simple_embedding)
-add_subdirectory(iree_custom_modules)
