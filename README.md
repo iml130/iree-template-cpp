@@ -8,7 +8,6 @@ However, we welcome any kind of feedback via the issue tracker or if appropriate
 
 The IREE C++ template demonstrates how to integrate [IREE](https://github.com/iree-org/iree) into a third-party project with CMake.
 IREE runtime support is demonstrated via the `iree_simple_embedding` sample forked from IREE, where the original source can be found [here](https://github.com/iree-org/iree/tree/master/samples/iree_simple_embedding).
-The `iree_custom_modules` sample further demonstrates the out-of-tree usage of a custom dialect alongside with the runtime. The original `iree_custom_modules` source can be found [here](https://github.com/iree-org/iree/tree/main/samples/iree_custom_modules).
 
 The template is developed by Marius Brehler at Fraunhofer IML.
 
@@ -54,16 +53,9 @@ ninja
 
 #### What's next?
 
-Explore the samples `iree_simple_embedding` and `iree_custom_modules` within the build directory:
+Explore the sample `iree_simple_embedding` within the build directory:
 
 `iree_simple_embedding`
 * `simple_embedding_test`: Test executable.
-
-`iree_custom_modules`
-* `extern_custom_modules_test`: Test executable.
-
-`iree_custom_modules/dialect`
-* `custom-opt`: See the related documentation for [iree-opt](https://github.com/iree-org/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-opt) documentation.
-* `custom-translate`: See the related documentation for [iree-compile](https://github.com/iree-org/iree/blob/main/docs/developers/developing_iree/developer_overview.md#iree-compile) documentation.
 
 Of course it's also worth to explore the corresponding CMake configuration.

@@ -37,6 +37,5 @@ jobs:
           -DIREE_HAL_DRIVER_VMVX=ON \
           -DIREE_TARGET_BACKEND_DEFAULTS=OFF \
           -DIREE_TARGET_BACKEND_VMVX=ON
-        cmake --build . --target extern_custom_modules_test simple_embedding
-        ./iree_custom_modules/extern_custom_modules_test
+        cmake --build . --target simple_embedding
         ./iree_simple_embedding/simple_embedding
