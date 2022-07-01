@@ -8,20 +8,21 @@
 
 #include "iree/base/api.h"
 #include "iree/hal/api.h"
-#include "iree/hal/vmvx/registration/driver_module.h"
+#include "iree/hal/drivers/local_task/registration/driver_module.h"
 
 // Compiled module embedded here to avoid file IO:
 #include "simple_embedding_test_bytecode_module.h"
 
 iree_status_t create_sample_device(iree_allocator_t host_allocator,
                                    iree_hal_device_t** out_device) {
-  // Only register the VMVX HAL driver.
-  IREE_RETURN_IF_ERROR(
-      iree_hal_vmvx_driver_module_register(iree_hal_driver_registry_default()));
-  // Create the hal driver from the name.
+  // Only register the local-task HAL driver.
+  IREE_RETURN_IF_ERROR(iree_hal_local_task_driver_module_register(
+      iree_hal_driver_registry_default()));
+
+  // Create the HAL driver from the name.
   iree_hal_driver_t* driver = NULL;
-  iree_string_view_t identifier = iree_make_cstring_view("vmvx");
-  iree_status_t status = iree_hal_driver_registry_try_create_by_name(
+  iree_string_view_t identifier = iree_make_cstring_view("local-task");
+  iree_status_t status = iree_hal_driver_registry_try_create(
       iree_hal_driver_registry_default(), identifier, host_allocator, &driver);
 
   if (iree_status_is_ok(status)) {
