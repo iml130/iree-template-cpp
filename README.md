@@ -4,10 +4,10 @@
 
 **DISCLAIMER**:
 This project is not intended for everyday use and made available without any support.
-However, we welcome any kind of feedback via the issue tracker or if appropriate via IREE's [communication channels](https://github.com/iree-org/iree#communication-channels), e.g. via the Discord server.
+However, we welcome any kind of feedback via the issue tracker or if appropriate via IREE's [communication channels](https://github.com/openxla/iree#communication-channels), e.g. via the Discord server.
 
-The IREE C++ template demonstrates how to integrate [IREE](https://github.com/iree-org/iree) into a third-party project with CMake.
-IREE runtime support is demonstrated via the `iree_simple_embedding` sample forked from IREE, where the original source can be found [here](https://github.com/iree-org/iree/tree/master/samples/iree_simple_embedding).
+The IREE C++ template demonstrates how to integrate [IREE](https://github.com/openxla/iree) into a third-party project with CMake.
+IREE runtime support is demonstrated via the `iree_simple_embedding` sample forked from IREE, where the original source can be found [here](https://github.com/openxla/iree/tree/master/samples/iree_simple_embedding).
 
 The template is developed by Marius Brehler at Fraunhofer IML.
 
