@@ -18,7 +18,7 @@
 #include "iree/hal/api.h"
 #include "iree/modules/hal/module.h"
 #include "iree/vm/api.h"
-#include "iree/vm/bytecode_module.h"
+#include "iree/vm/bytecode/module.h"
 
 // A function to create the HAL device from the different backend targets.
 // The HAL device is returned based on the implementation, and it must be
@@ -31,19 +31,17 @@ extern iree_status_t create_sample_device(iree_allocator_t host_allocator,
 extern const iree_const_byte_span_t load_bytecode_module_data();
 
 iree_status_t Run() {
-  // TODO(benvanik): move to instance-based registration.
-  IREE_RETURN_IF_ERROR(iree_hal_module_register_all_types());
-
   iree_vm_instance_t* instance = NULL;
   IREE_RETURN_IF_ERROR(
       iree_vm_instance_create(iree_allocator_system(), &instance));
+  IREE_RETURN_IF_ERROR(iree_hal_module_register_all_types(instance));
 
   iree_hal_device_t* device = NULL;
   IREE_RETURN_IF_ERROR(create_sample_device(iree_allocator_system(), &device),
                        "create device");
   iree_vm_module_t* hal_module = NULL;
   IREE_RETURN_IF_ERROR(
-      iree_hal_module_create(device, IREE_HAL_MODULE_FLAG_SYNCHRONOUS,
+      iree_hal_module_create(instance, device, IREE_HAL_MODULE_FLAG_SYNCHRONOUS,
                              iree_allocator_system(), &hal_module));
 
   // Load bytecode module from the embedded data.
@@ -51,7 +49,7 @@ iree_status_t Run() {
 
   iree_vm_module_t* bytecode_module = NULL;
   IREE_RETURN_IF_ERROR(iree_vm_bytecode_module_create(
-      module_data, iree_allocator_null(), iree_allocator_system(),
+      instance, module_data, iree_allocator_null(), iree_allocator_system(),
       &bytecode_module));
 
   // Allocate a context that will hold the module state across invocations.
@@ -129,7 +127,7 @@ iree_status_t Run() {
   // Get the result buffers from the invocation.
   iree_hal_buffer_view_t* ret_buffer_view =
       (iree_hal_buffer_view_t*)iree_vm_list_get_ref_deref(
-          outputs, 0, iree_hal_buffer_view_get_descriptor());
+          outputs, 0, &iree_hal_buffer_view_descriptor);
   if (ret_buffer_view == NULL) {
     return iree_make_status(IREE_STATUS_NOT_FOUND,
                             "can't find return buffer view");
