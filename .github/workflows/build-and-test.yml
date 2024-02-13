@@ -12,18 +12,21 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Install dependencies
       run: |
         sudo apt update
         sudo apt install cmake clang ninja-build
     - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Initalize submodules
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+    - name: Initialize submodules
       run : |
         git submodule update --init
         cd third_party/iree
@@ -35,8 +38,8 @@ jobs:
         cd build
         cmake .. \
           -GNinja \
-          -DCMAKE_C_COMPILER=clang-10 \
-          -DCMAKE_CXX_COMPILER=clang++-10 \
+          -DCMAKE_C_COMPILER=clang-14 \
+          -DCMAKE_CXX_COMPILER=clang++-14 \
           -DIREE_HAL_DRIVER_DEFAULTS=OFF \
           -DIREE_HAL_EXECUTABLE_LOADER_DEFAULTS=OFF \
           -DIREE_HAL_EXECUTABLE_LOADER_VMVX_MODULE=ON \
