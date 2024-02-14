@@ -44,6 +44,9 @@ jobs:
           -DIREE_HAL_EXECUTABLE_LOADER_DEFAULTS=OFF \
           -DIREE_HAL_EXECUTABLE_LOADER_VMVX_MODULE=ON \
           -DIREE_TARGET_BACKEND_DEFAULTS=OFF \
-          -DIREE_TARGET_BACKEND_VMVX=ON
+          -DIREE_TARGET_BACKEND_VMVX=ON \
+          -DIREE_INPUT_TORCH=OFF \
+          -DIREE_INPUT_TOSA=OFF \
+          -DIREE_OUTPUT_FORMAT_C=OFF
         cmake --build . --target simple_embedding
         ./iree_simple_embedding/simple_embedding
