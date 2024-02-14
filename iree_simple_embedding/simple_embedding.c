@@ -32,17 +32,17 @@ extern const iree_const_byte_span_t load_bytecode_module_data();
 
 iree_status_t Run() {
   iree_vm_instance_t* instance = NULL;
-  IREE_RETURN_IF_ERROR(
-      iree_vm_instance_create(iree_allocator_system(), &instance));
+  IREE_RETURN_IF_ERROR(iree_vm_instance_create(
+      IREE_VM_TYPE_CAPACITY_DEFAULT, iree_allocator_system(), &instance));
   IREE_RETURN_IF_ERROR(iree_hal_module_register_all_types(instance));
 
   iree_hal_device_t* device = NULL;
   IREE_RETURN_IF_ERROR(create_sample_device(iree_allocator_system(), &device),
                        "create device");
   iree_vm_module_t* hal_module = NULL;
-  IREE_RETURN_IF_ERROR(
-      iree_hal_module_create(instance, device, IREE_HAL_MODULE_FLAG_SYNCHRONOUS,
-                             iree_allocator_system(), &hal_module));
+  IREE_RETURN_IF_ERROR(iree_hal_module_create(
+      instance, /*device_count=*/1, &device, IREE_HAL_MODULE_FLAG_SYNCHRONOUS,
+      iree_allocator_system(), &hal_module));
 
   // Load bytecode module from the embedded data.
   const iree_const_byte_span_t module_data = load_bytecode_module_data();
@@ -78,16 +78,16 @@ iree_status_t Run() {
   iree_hal_dim_t shape[1] = {IREE_ARRAYSIZE(kFloat4)};
   iree_hal_buffer_view_t* arg0_buffer_view = NULL;
   iree_hal_buffer_view_t* arg1_buffer_view = NULL;
-  IREE_RETURN_IF_ERROR(iree_hal_buffer_view_allocate_buffer(
-      iree_hal_device_allocator(device), IREE_ARRAYSIZE(shape), shape,
+  IREE_RETURN_IF_ERROR(iree_hal_buffer_view_allocate_buffer_copy(
+      device, iree_hal_device_allocator(device), IREE_ARRAYSIZE(shape), shape,
       IREE_HAL_ELEMENT_TYPE_FLOAT_32, IREE_HAL_ENCODING_TYPE_DENSE_ROW_MAJOR,
       (iree_hal_buffer_params_t){
           .type = IREE_HAL_MEMORY_TYPE_DEVICE_LOCAL,
           .usage = IREE_HAL_BUFFER_USAGE_DEFAULT,
       },
       iree_make_const_byte_span(kFloat4, sizeof(kFloat4)), &arg0_buffer_view));
-  IREE_RETURN_IF_ERROR(iree_hal_buffer_view_allocate_buffer(
-      iree_hal_device_allocator(device), IREE_ARRAYSIZE(shape), shape,
+  IREE_RETURN_IF_ERROR(iree_hal_buffer_view_allocate_buffer_copy(
+      device, iree_hal_device_allocator(device), IREE_ARRAYSIZE(shape), shape,
       IREE_HAL_ELEMENT_TYPE_FLOAT_32, IREE_HAL_ENCODING_TYPE_DENSE_ROW_MAJOR,
       (iree_hal_buffer_params_t){
           .type = IREE_HAL_MEMORY_TYPE_DEVICE_LOCAL,
@@ -97,10 +97,10 @@ iree_status_t Run() {
 
   // Setup call inputs with our buffers.
   iree_vm_list_t* inputs = NULL;
-  IREE_RETURN_IF_ERROR(iree_vm_list_create(
-                           /*element_type=*/NULL,
-                           /*capacity=*/2, iree_allocator_system(), &inputs),
-                       "can't allocate input vm list");
+  IREE_RETURN_IF_ERROR(
+      iree_vm_list_create(iree_vm_make_undefined_type_def(),
+                          /*capacity=*/2, iree_allocator_system(), &inputs),
+      "can't allocate input vm list");
 
   iree_vm_ref_t arg0_buffer_view_ref =
       iree_hal_buffer_view_move_ref(arg0_buffer_view);
@@ -114,10 +114,10 @@ iree_status_t Run() {
   // Prepare outputs list to accept the results from the invocation.
   // The output vm list is allocated statically.
   iree_vm_list_t* outputs = NULL;
-  IREE_RETURN_IF_ERROR(iree_vm_list_create(
-                           /*element_type=*/NULL,
-                           /*capacity=*/1, iree_allocator_system(), &outputs),
-                       "can't allocate output vm list");
+  IREE_RETURN_IF_ERROR(
+      iree_vm_list_create(iree_vm_make_undefined_type_def(),
+                          /*capacity=*/1, iree_allocator_system(), &outputs),
+      "can't allocate output vm list");
 
   // Synchronously invoke the function.
   IREE_RETURN_IF_ERROR(iree_vm_invoke(
@@ -126,8 +126,7 @@ iree_status_t Run() {
 
   // Get the result buffers from the invocation.
   iree_hal_buffer_view_t* ret_buffer_view =
-      (iree_hal_buffer_view_t*)iree_vm_list_get_ref_deref(
-          outputs, 0, &iree_hal_buffer_view_descriptor);
+      iree_vm_list_get_buffer_view_assign(outputs, 0);
   if (ret_buffer_view == NULL) {
     return iree_make_status(IREE_STATUS_NOT_FOUND,
                             "can't find return buffer view");

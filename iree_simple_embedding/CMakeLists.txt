@@ -11,7 +11,7 @@ set(_TRANSLATE_TOOL_EXECUTABLE $<TARGET_FILE:iree-compile>)
 
 # Define arguments passed to iree-compile
 set(_ARGS)
-list(APPEND _ARGS "-iree-input-type=mhlo")
+list(APPEND _ARGS "-iree-input-type=stablehlo")
 list(APPEND _ARGS "--output-format=vm-bytecode")
 list(APPEND _ARGS "-iree-hal-target-backends=vmvx")
 # Uncomment the line below to use vulkan-spirv backend
